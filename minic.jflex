@@ -50,6 +50,8 @@ white_space    =      {new_line} | [ \t\f]
 
 %%
 
+
+<YYINITIAL>{
 "if"			{ return symbol(IF); }
 "else" 			{ return symbol(ELSE); }
 "while"			{ return symbol(WHILE); }
@@ -85,6 +87,12 @@ white_space    =      {new_line} | [ \t\f]
 ">"			{ return symbol(GREATER,">"); }
 
 {white_space}		{ /* ignore bad characters */ }
+
+}
+
+.|\n              {  /* throw new Error("Illegal character <"+ yytext()+">");*/
+		    System.err.println("Illegal character <"+ yytext()+">");
+                  }
 
 
 

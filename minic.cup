@@ -105,35 +105,35 @@ precedence left ASSIGN, ADD_ASSIGN,  SUB_ASSIGN, MUL_ASSIGN, SCROPPO_ASSIGN, MOD
 start with program;
 
 /* GRAMMAR */
-program		::= CURLYL scroppo CURLYR
+program		::= CURLYL scroppo:scroppex CURLYR
 		;
 
-scroppo		::= scroppo stmt
+scroppo		::= scroppo:s stmt:st
 		|
 		;
 
-stmt		::= simp SEMI
-		| control
-		| SEMI
+stmt		::= simp:s SEMI:sc
+		| control:c
+		| SEMI:sc
 		;
 
-simp		::= IDENT asop exp
+simp		::= IDENT:i asop:a exp:e
 		;
 
-control		::= IF PARAL exp PARAR ELSE block
-		| IF PARAL exp PARAR 
-		| WHILE PARAL exp PARAR block
+control		::= IF PARAL exp:e PARAR ELSE block:b
+		| IF PARAL exp:e PARAR 
+		| WHILE PARAL exp:e PARAR block:b
 		;
 
-block		::= stmt
-		| CURLYL stmt CURLYR
+block		::= stmt:s
+		| CURLYL stmt:s CURLYR
 		;
 
-exp		::= PARAL exp PARAR
-		| INTCONST
-		| IDENT
-		| unop exp
-		| exp binop exp
+exp		::= PARAL exp:e PARAR
+		| INTCONST:c
+		| IDENT:id
+		| unop:u exp:e
+		| exp:exp1 binop:bo exp:exp2
 		;
 
 asop		::= ASSIGN

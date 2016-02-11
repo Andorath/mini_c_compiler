@@ -5,8 +5,9 @@ import java.util.List;
 
 public class TestVisitor extends AbstractVisitor {
     public TestVisitor(){
-	registerPreVisit("stmt",this::preVisitStatement);
-    }
+	registerPreVisit("stmt",this::preVisitStatement);    
+}
+
     public void preVisitStatement(XMLElement element, List<XMLElement> children){
 	System.out.println("Found a statement");
 	SyntaxTreeDFS.dfs(element,new TerminalFilter());
