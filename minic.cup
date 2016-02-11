@@ -1,1 +1,167 @@
-// CUP specification
+import java.io.*;
+import java_cup.runtime.ComplexSymbolFactory;
+import java_cup.runtime.Symbol;
+import java_cup.runtime.ScannerBuffer;
+import java.util.*;
+import java_cup.runtime.XMLElement;
+import java_cup.runtime.XMLElement.*;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamWriter;
+
+import javax.xml.transform.*;
+import javax.xml.transform.stream.*;    
+
+parser code {:
+    public void syntax_error(Symbol cur_token){
+	System.err.println("Syntax error at "+cur_token);
+    }
+    public static void newScope(){
+	typenames.push(new HashSet<String>());
+    }
+    public static void deleteScope(){
+	typenames.pop();
+    }
+    public static boolean lookupType(String name){
+	for (HashSet<String> scope: typenames)
+	    if (scope.contains(name)) return true;
+	return false;
+    }
+    public static void addType(String name){
+	typenames.peek().add(name);
+    }
+    public static LinkedList<HashSet<String>> typenames = new LinkedList<HashSet<String>>();
+    public Parser(Lexer lex, ComplexSymbolFactory sf) {
+	super(lex,sf);
+    }
+
+    public static void main(String args[]) {
+	try {
+	    System.out.println("Parser runs: ");
+	    ComplexSymbolFactory csf = new ComplexSymbolFactory();
+	    // create a buffering scanner wrapper
+	    ScannerBuffer lexer = new ScannerBuffer(new Lexer(new BufferedReader(new FileReader(args[0])),csf));
+	    // start parsing
+	    Parser p = new Parser(lexer,csf);
+	    newScope();
+	    XMLElement e = (XMLElement)p.parse().value;
+	    // create XML output file 
+	    XMLOutputFactory outFactory = XMLOutputFactory.newInstance();
+	    XMLStreamWriter sw = outFactory.createXMLStreamWriter(new FileOutputStream(args[1]));
+	    // dump XML output to the file
+	    XMLElement.dump(lexer,sw,e); //,"expr","stmt");
+	    // transform the parse tree into an AST and a rendered HTML version
+	    Transformer transformer = TransformerFactory.newInstance()
+		.newTransformer(new StreamSource(new File("tree.xsl")));
+	    Source text = new StreamSource(new File(args[1]));
+	    transformer.transform(text, new StreamResult(new File("output.html")));
+
+	    System.out.println("Parsing finished!");
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} 
+    }
+:};
+
+/* TERMINAL */
+terminal IF, ELSE, WHILE, CURLYL, CURLYR, PARAL, PARAR, IDENT, INTCONST,
+	  ADD_ASSIGN, SUB_ASSIGN, MUL_ASSIGN, SCROPPO_ASSIGN, MOD_ASSIGN,
+	  LE_OP, GE_OP, EQ_OP, NE_OP, AND_OP, OR_OP, NOT, ASSIGN, MINUS,
+	  PLUS, MUL, DIVIDE, MODULUS, LESS, GREATER, SEMI;
+
+
+/* NON TERMINAL */
+non terminal	program;
+non terminal	stmt;
+non terminal	simp;
+non terminal	control;
+non terminal	block;
+non terminal	exp;
+non terminal	asop;
+non terminal	binop;
+non terminal	unop;
+
+non terminal 	scroppo;
+
+
+/* PRECEDENCES */
+precedence nonassoc PARAR, PARAL;
+precedence right NOT;
+precedence left MUL, DIVIDE, MODULUS;
+precedence left PLUS, MINUS;
+precedence left LESS, LE_OP, GREATER, GE_OP;
+precedence left EQ_OP, NE_OP;
+precedence left AND_OP;
+precedence left OR_OP;
+precedence left ASSIGN, ADD_ASSIGN,  SUB_ASSIGN, MUL_ASSIGN, SCROPPO_ASSIGN, MOD_ASSIGN; 
+
+start with program;
+
+/* GRAMMAR */
+program		::= CURLYL scroppo CURLYR
+		;
+
+scroppo		::= scroppo stmt
+		|
+		;
+
+stmt		::= simp SEMI
+		| control
+		| SEMI
+		;
+
+simp		::= IDENT asop exp
+		;
+
+control		::= IF PARAL exp PARAR ELSE block
+		| IF PARAL exp PARAR 
+		| WHILE PARAL exp PARAR block
+		;
+
+block		::= stmt
+		| CURLYL stmt CURLYR
+		;
+
+exp		::= PARAL exp PARAR
+		| INTCONST
+		| IDENT
+		| unop exp
+		| exp binop exp
+		;
+
+asop		::= ASSIGN
+		| ADD_ASSIGN
+		| SUB_ASSIGN
+		| MUL_ASSIGN
+		| SCROPPO_ASSIGN
+		| MOD_ASSIGN
+		;
+
+binop		::= PLUS
+		| MINUS
+		| MUL
+		| DIVIDE
+		| MODULUS
+		| LESS
+		| LE_OP
+		| GREATER
+		| GE_OP
+		| EQ_OP
+		| NE_OP
+		| AND_OP
+		| OR_OP
+		;
+
+unop		::= NOT
+		| MINUS
+		;
+
+
+
+
+
+
+
+
+
+
+
