@@ -38,11 +38,15 @@ import java.util.*;
     
 %}
 
-D		=	[0-9]
+D 		= 	0 | [1-9][0-9]*
 L		=	[A-Za-z]
 AN		= 	[0-9A-Za-z]
 new_line       =       \r|\n|\r\n
 white_space    =      {new_line} | [ \t\f]
+
+%eofval{
+     return symbolFactory.newSymbol("EOF", EOF, new Location(yyline+1,yycolumn+1,yychar), new Location(yyline+1,yycolumn+1,yychar+1));
+%eofval} 
 
 %%
 
@@ -55,8 +59,8 @@ white_space    =      {new_line} | [ \t\f]
 "("			{ return symbol(PARAL); }
 ")"			{ return symbol(PARAR); }
 
-{L}({AN})*		{ return symbol(IDENT); }
-{D}{D}			{ return symbol(INTCONST); }
+{L}({AN})*		{ return symbol(IDENT,"Simbolo -> Literal"); }
+{D}			{ return symbol(INTCONST,"Simbolo -> Numero decimale"); }
 
 "+="			{ return symbol(ADD_ASSIGN); }
 "-="			{ return symbol(SUB_ASSIGN); }
@@ -69,9 +73,9 @@ white_space    =      {new_line} | [ \t\f]
 "!="			{ return symbol(NE_OP,"!="); }
 "&&"			{ return symbol(AND_OP,"&&"); }
 "||"			{ return symbol(OR_OP,"||"); }
-“;”			{ return symbol(SEMI); }
+";"			{ return symbol(SEMI); }
 "!"			{ return symbol(NOT,"!"); }
-"="			{ return symbol(ASSIGN); }
+"="			{ return symbol(ASSIGN,"Simbolo -> ="); }
 "-"			{ return symbol(MINUS); }
 "+"			{ return symbol(PLUS,"+"); }
 "*"			{ return symbol(MUL,"*"); }

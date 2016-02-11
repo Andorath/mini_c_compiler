@@ -3,7 +3,7 @@
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 		xmlns:exsl="http://exslt.org/common"
 		>
-<xsl:output method="xml" indent="yes"/>
+<xsl:output method="xml" version="1.0" encoding="UTF-8" />
 
 <xsl:include href="tree-view.xsl"/>
 
@@ -16,8 +16,8 @@
 <xsl:template match="nonterminal" mode="flatten">
   <xsl:variable name="temp" select="@id" />
   <xsl:choose>
-    <!-- collapses unary productions, when suffix is "_expression"-->
-    <xsl:when test="count(*)=3 and contains($temp,'expression') and *[contains(@id,'expression')]"> 
+    
+    <xsl:when test="count(*)=3 and contains($temp,'expr') and *[contains(@id,'expr')]"> 
       <xsl:apply-templates  mode="flatten"/>
     </xsl:when>
 
@@ -27,12 +27,9 @@
     </xsl:when>
 
     <!-- collapses unary productions -->
-    <!--xsl:when test="count(*)=3 and count(/document/blacklist[1]/symbol[text() = $temp])=0"> 
+    <xsl:when test="count(*)=3 and count(/document/blacklist[1]/symbol[text() = $temp])=0"> 
       <xsl:apply-templates  mode="flatten"/>
-    </xsl:when-->
-
-
-
+    </xsl:when>
 
     <xsl:otherwise>
       <xsl:element name="{@id}" >
@@ -58,7 +55,8 @@
     <xsl:apply-templates mode="rendered" select="exsl:node-set($flatten)"/>
  </xsl:variable>
 
- <xsl:copy-of select="$rendered" />
+ <!--xsl:copy-of select="$rendered" /-->
+ <xsl:copy-of select="$flatten" />
 </xsl:template>
 
 
