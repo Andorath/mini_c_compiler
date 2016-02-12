@@ -75,7 +75,7 @@ white_space    =      {new_line} | [ \t\f]
 "!="			{ return symbol(NE_OP,"!="); }
 "&&"			{ return symbol(AND_OP,"&&"); }
 "||"			{ return symbol(OR_OP,"||"); }
-";"			{ return symbol(SEMI); }
+";"			{ return symbol(SEMI,";"); }
 "!"			{ return symbol(NOT,"!"); }
 "="			{ return symbol(ASSIGN,"="); }
 "-"			{ return symbol(MINUS); }

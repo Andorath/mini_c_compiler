@@ -258,6 +258,15 @@ public class Parser extends java_cup.runtime.lr_parser {
 	    .newTransformer(new StreamSource(new File("tree-view.xsl")));
       text = new StreamSource(new File("output.xml"));
       transformer.transform(text, new StreamResult(new File("ast.html")));
+
+      /* SVG */
+      transformer = TransformerFactory.newInstance()
+	    .newTransformer(new StreamSource(new File("tree-view-svg.xsl")));
+
+      text = new StreamSource(new File("output.xml"));
+
+      transformer.transform(text, new StreamResult(new File("svg.html")));
+
   }
 
 

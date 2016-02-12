@@ -1,16 +1,31 @@
-body       { font-family: sans-serif; font-size: 80%; background-color: #EAEAD9; color: black }
+
+* {
+    line-height: 0px;
+}
+body       { font-family: sans-serif; font-size: 80%; background-color: rgb(245, 254, 255); color: black }
 
 .connector { font-family: monospace; }
 
+.mydivAzzurro {
+            display: inline-block;
+        }
+
+.mydivAzzurro1 {
+            display: inline-block;
+            margin-left: 3.7px;
+        }
 .name      { color: navy; background-color: white; text-decoration: underline; font-weight: bold;
                padding-top: 0px; padding-bottom: 1px; padding-left: 3px; padding-right: 3px }
 .altname   { color: navy; text-decoration: underline }
 .uri       { color: #444; font-style: italic }
-.value     { color: #040; background-color: #CCC; font-weight: bold }
+.value     { color: #040; font-size: 16; }
 .escape    { color: #620; font-family: monospace }
 
 .root      { color: yellow; background-color: black }
-.element   { color: yellow; background-color: navy }
+.element   { 
+                color: yellow; background-color: navy;
+                
+            }
 .namespace { color: yellow; background-color: #333 }
 .attribute { color: yellow; background-color: #040 }
 .text      { color: yellow; background-color: #400 }
