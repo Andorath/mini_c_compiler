@@ -1,15 +1,15 @@
 {
-ASS = 50;
+z = 50;
 
 x = 4;
 
 Y = 3;
 
-while (suca <= 50) 
+while (s <= 50) 
 {
    pluto += 3;
 }
 	
-ASS = pluto;
+z = pluto;
 	    
 }

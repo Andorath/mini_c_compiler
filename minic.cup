@@ -79,6 +79,7 @@ terminal IF, ELSE, WHILE, CURLYL, CURLYR, PARAL, PARAR, IDENT, INTCONST,
 
 /* NON TERMINAL */
 non terminal	program;
+non terminal 	stmtlist;
 non terminal	stmt;
 non terminal	simp;
 non terminal	control;
@@ -87,9 +88,6 @@ non terminal	exp;
 non terminal	asop;
 non terminal	binop;
 non terminal	unop;
-
-non terminal 	scroppo;
-
 
 /* PRECEDENCES */
 precedence nonassoc PARAR, PARAL;
@@ -105,62 +103,62 @@ precedence left ASSIGN, ADD_ASSIGN,  SUB_ASSIGN, MUL_ASSIGN, SCROPPO_ASSIGN, MOD
 start with program;
 
 /* GRAMMAR */
-program		::= CURLYL scroppo:scroppex CURLYR
+program		::= CURLYL:br stmtlist:sl CURLYR:br1
 		;
 
-scroppo		::= scroppo:s stmt:st
+stmtlist	::= stmtlist:sl stmt:st
 		|
 		;
 
-stmt		::= simp:s SEMI:sc
-		| control:c
+stmt		::= simp:simple SEMI:sc
+		| control:co
 		| SEMI:sc
 		;
 
-simp		::= IDENT:i asop:a exp:e
+simp		::= IDENT:id asop:a exp:ex
 		;
 
-control		::= IF PARAL exp:e PARAR ELSE block:b
-		| IF PARAL exp:e PARAR 
-		| WHILE PARAL exp:e PARAR block:b
+control		::= IF:i PARAL:br exp:ex PARAR:br1 ELSE:el block:blk
+		| IF:i PARAL:br exp:ex PARAR:br1 
+		| WHILE:wl PARAL:br exp:ex PARAR:br1 block:blk
 		;
 
 block		::= stmt:s
-		| CURLYL stmt:s CURLYR
+		| CURLYL:br stmt:s CURLYR:br1
 		;
 
-exp		::= PARAL exp:e PARAR
-		| INTCONST:c
+exp		::= PARAL:br exp:ex PARAR:br1
+		| INTCONST:cost
 		| IDENT:id
-		| unop:u exp:e
-		| exp:exp1 binop:bo exp:exp2
+		| unop:u exp:ex
+		| exp:ex1 binop:bo exp:ex2
 		;
 
-asop		::= ASSIGN
-		| ADD_ASSIGN
-		| SUB_ASSIGN
-		| MUL_ASSIGN
-		| SCROPPO_ASSIGN
-		| MOD_ASSIGN
+asop		::= ASSIGN:a
+		| ADD_ASSIGN:aa
+		| SUB_ASSIGN:sa
+		| MUL_ASSIGN:ma
+		| SCROPPO_ASSIGN:scra
+		| MOD_ASSIGN:mda
 		;
 
-binop		::= PLUS
-		| MINUS
-		| MUL
-		| DIVIDE
-		| MODULUS
-		| LESS
-		| LE_OP
-		| GREATER
-		| GE_OP
-		| EQ_OP
-		| NE_OP
-		| AND_OP
-		| OR_OP
+binop		::= PLUS:p
+		| MINUS:m
+		| MUL:m
+		| DIVIDE:d
+		| MODULUS:m
+		| LESS:l
+		| LE_OP:lo
+		| GREATER:g
+		| GE_OP:go
+		| EQ_OP:eo
+		| NE_OP:no
+		| AND_OP:ao
+		| OR_OP:oo
 		;
 
-unop		::= NOT
-		| MINUS
+unop		::= NOT:no
+		| MINUS:mi
 		;
 
 

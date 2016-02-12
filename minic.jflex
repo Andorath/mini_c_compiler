@@ -52,23 +52,23 @@ white_space    =      {new_line} | [ \t\f]
 
 
 <YYINITIAL>{
-"if"			{ return symbol(IF); }
-"else" 			{ return symbol(ELSE); }
-"while"			{ return symbol(WHILE); }
+"if"			{ return symbol(IF, yytext()); }
+"else" 			{ return symbol(ELSE, yytext()); }
+"while"			{ return symbol(WHILE, yytext()); }
 
-("{"|"<%")		{ return symbol(CURLYL); }
-("}"|"%>")		{ return symbol(CURLYR); }
-"("			{ return symbol(PARAL); }
-")"			{ return symbol(PARAR); }
+("{"|"<%")		{ return symbol(CURLYL, yytext()); }
+("}"|"%>")		{ return symbol(CURLYR, yytext()); }
+"("			{ return symbol(PARAL, yytext()); }
+")"			{ return symbol(PARAR, yytext()); }
 
-{L}({AN})*		{ return symbol(IDENT,"Simbolo -> Literal"); }
-{D}			{ return symbol(INTCONST,"Simbolo -> Numero decimale"); }
+{L}({AN})*		{ return symbol(IDENT,yytext()); }
+{D}			{ return symbol(INTCONST, new Integer(Integer.parseInt(yytext()))); }
 
-"+="			{ return symbol(ADD_ASSIGN); }
-"-="			{ return symbol(SUB_ASSIGN); }
-"*="			{ return symbol(MUL_ASSIGN); }
-"/="			{ return symbol(SCROPPO_ASSIGN); }
-"%="			{ return symbol(MOD_ASSIGN); }
+"+="			{ return symbol(ADD_ASSIGN, yytext()); }
+"-="			{ return symbol(SUB_ASSIGN, yytext()); }
+"*="			{ return symbol(MUL_ASSIGN, yytext()); }
+"/="			{ return symbol(SCROPPO_ASSIGN, yytext()); }
+"%="			{ return symbol(MOD_ASSIGN, yytext()); }
 "<="			{ return symbol(LE_OP,"<="); }
 ">="			{ return symbol(GE_OP,">="); }
 "=="			{ return symbol(EQ_OP,"=="); }
@@ -77,7 +77,7 @@ white_space    =      {new_line} | [ \t\f]
 "||"			{ return symbol(OR_OP,"||"); }
 ";"			{ return symbol(SEMI); }
 "!"			{ return symbol(NOT,"!"); }
-"="			{ return symbol(ASSIGN,"Simbolo -> ="); }
+"="			{ return symbol(ASSIGN,"="); }
 "-"			{ return symbol(MINUS); }
 "+"			{ return symbol(PLUS,"+"); }
 "*"			{ return symbol(MUL,"*"); }

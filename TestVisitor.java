@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TestVisitor extends AbstractVisitor {
     public TestVisitor(){
-	registerPreVisit("stmt",this::preVisitStatement);    
+	registerPreVisit("program",this::preVisitStatement);    
 }
 
     public void preVisitStatement(XMLElement element, List<XMLElement> children){

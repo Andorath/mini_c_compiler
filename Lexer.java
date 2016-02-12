@@ -668,11 +668,11 @@ class Lexer implements java_cup.runtime.Scanner, sym {
             }
           case 33: break;
           case 2: 
-            { return symbol(INTCONST,"Simbolo -> Numero decimale");
+            { return symbol(INTCONST, new Integer(Integer.parseInt(yytext())));
             }
           case 34: break;
           case 3: 
-            { return symbol(IDENT,"Simbolo -> Literal");
+            { return symbol(IDENT,yytext());
             }
           case 35: break;
           case 4: 
@@ -680,7 +680,7 @@ class Lexer implements java_cup.runtime.Scanner, sym {
             }
           case 36: break;
           case 5: 
-            { return symbol(CURLYL);
+            { return symbol(CURLYL, yytext());
             }
           case 37: break;
           case 6: 
@@ -692,7 +692,7 @@ class Lexer implements java_cup.runtime.Scanner, sym {
             }
           case 39: break;
           case 8: 
-            { return symbol(CURLYR);
+            { return symbol(CURLYR, yytext());
             }
           case 40: break;
           case 9: 
@@ -700,11 +700,11 @@ class Lexer implements java_cup.runtime.Scanner, sym {
             }
           case 41: break;
           case 10: 
-            { return symbol(PARAL);
+            { return symbol(PARAL, yytext());
             }
           case 42: break;
           case 11: 
-            { return symbol(PARAR);
+            { return symbol(PARAR, yytext());
             }
           case 43: break;
           case 12: 
@@ -712,7 +712,7 @@ class Lexer implements java_cup.runtime.Scanner, sym {
             }
           case 44: break;
           case 13: 
-            { return symbol(ASSIGN,"Simbolo -> =");
+            { return symbol(ASSIGN,"=");
             }
           case 45: break;
           case 14: 
@@ -736,7 +736,7 @@ class Lexer implements java_cup.runtime.Scanner, sym {
             }
           case 50: break;
           case 19: 
-            { return symbol(IF);
+            { return symbol(IF, yytext());
             }
           case 51: break;
           case 20: 
@@ -744,7 +744,7 @@ class Lexer implements java_cup.runtime.Scanner, sym {
             }
           case 52: break;
           case 21: 
-            { return symbol(MOD_ASSIGN);
+            { return symbol(MOD_ASSIGN, yytext());
             }
           case 53: break;
           case 22: 
@@ -752,7 +752,7 @@ class Lexer implements java_cup.runtime.Scanner, sym {
             }
           case 54: break;
           case 23: 
-            { return symbol(ADD_ASSIGN);
+            { return symbol(ADD_ASSIGN, yytext());
             }
           case 55: break;
           case 24: 
@@ -760,15 +760,15 @@ class Lexer implements java_cup.runtime.Scanner, sym {
             }
           case 56: break;
           case 25: 
-            { return symbol(SUB_ASSIGN);
+            { return symbol(SUB_ASSIGN, yytext());
             }
           case 57: break;
           case 26: 
-            { return symbol(MUL_ASSIGN);
+            { return symbol(MUL_ASSIGN, yytext());
             }
           case 58: break;
           case 27: 
-            { return symbol(SCROPPO_ASSIGN);
+            { return symbol(SCROPPO_ASSIGN, yytext());
             }
           case 59: break;
           case 28: 
@@ -784,11 +784,11 @@ class Lexer implements java_cup.runtime.Scanner, sym {
             }
           case 62: break;
           case 31: 
-            { return symbol(ELSE);
+            { return symbol(ELSE, yytext());
             }
           case 63: break;
           case 32: 
-            { return symbol(WHILE);
+            { return symbol(WHILE, yytext());
             }
           case 64: break;
           default:
