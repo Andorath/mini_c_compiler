@@ -1,15 +1,14 @@
 {
-z = 50;
+	z = 50;
 
-x = 4;
+	x = 4;
 
-Y = 3;
+	Y = 3;
 
-while (s <= 50) 
-{
-   pluto += 3;
-}
+	while (s <= 50) 
+	{
+   		pluto += 3;
+	}
 	
-z = pluto;
-	    
+	z = pluto;	    
 }

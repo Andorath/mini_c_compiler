@@ -1,4 +1,12 @@
-<html><head><META http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><title>Bilotta</title><link type="text/css" rel="stylesheet" href="tree-view.css"></head><body><h3>Parse-Tree</h3><span class="connector">&nbsp;&nbsp;</span>
+<html><head><META http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><title>Bilotta</title><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script><link href="prism.css" rel="stylesheet"><script src="//cdn.jsdelivr.net/highlight.js/9.1.0/highlight.min.js"></script><link type="text/css" rel="stylesheet" href="tree-view.css"><script>
+            $(document).ready(function(){
+                $.get('input.c', function(data) 
+                {
+                    $("code").text(data);
+                    Prism.highlightElement($('code')[0]);
+                }, 'text');
+            });
+            </script><script src="prism.js"></script></head><body><div class="wrapper"><div class="tree"><h3>Parse-Tree</h3><span class="connector">&nbsp;&nbsp;</span>
             
            
             
@@ -1006,4 +1014,4 @@
             
         
             
-        <div class="myDivAzzurro"><svg height="20" width="2"><line x1="0" y1="0" x2="0" y2="30" style="stroke:rgb(69, 201, 171);stroke-width:3.5"></line></svg></div><span class="connector"><svg height="2" width="20"><line x1="0" y1="0" x2="20" y2="0" style="stroke:rgb(69, 201, 171);stroke-width:5"></line></svg></span>&nbsp;<span class="value">}</span><br></body></html>
+        <div class="myDivAzzurro"><svg height="20" width="2"><line x1="0" y1="0" x2="0" y2="30" style="stroke:rgb(69, 201, 171);stroke-width:3.5"></line></svg></div><span class="connector"><svg height="2" width="20"><line x1="0" y1="0" x2="20" y2="0" style="stroke:rgb(69, 201, 171);stroke-width:5"></line></svg></span>&nbsp;<span class="value">}</span><br></div><div class="sourceCodeWrapper"><div class="sourceCode"><h3>Source Code</h3><p></p><p></p><pre><code class="language-c">while(true)</code></pre></div></div></div></body></html>

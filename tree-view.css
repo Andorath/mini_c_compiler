@@ -4,7 +4,38 @@
 }
 body       { font-family: sans-serif; font-size: 80%; background-color: rgb(245, 254, 255); color: black }
 
-.connector { font-family: monospace; }
+.connector  { font-family: monospace; }
+
+.wrapper    { 
+            width: 100%;
+            margin: 0 auto;
+            }
+
+.tree   { 
+            display: block; 
+            float: left;
+            box-sizing: border-box;
+            width: 47%;
+            width: -webkit-calc(50% - 5px);
+            width: calc(50% - 5px);
+            margin: 0 5px 10px 0;
+        }
+
+.sourceCode {
+                width: 45%;
+                position: fixed;
+                box-sizing: border-box
+            }
+
+.sourceCodeWrapper  {       
+                    position: relative;
+                    display: block;
+                    float: right;
+                    box-sizing: border-box;
+                    width: 47%;
+                    width: -webkit-calc(50% - 5px);
+                    margin: 0 0 10px 5px;
+}
 
 .mydivAzzurro {
             display: inline-block;

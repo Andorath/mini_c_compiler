@@ -11,11 +11,41 @@
       <head>
 	<meta charset="UTF-8" />
         <title>Bilotta</title>
-        <link type="text/css" rel="stylesheet" href="tree-view.css"/>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>   
+        <link href="prism.css" rel="stylesheet" />
+          <script src="//cdn.jsdelivr.net/highlight.js/9.1.0/highlight.min.js"></script>
+        <link type="text/css" rel="stylesheet" href="tree-view.css"/>        
+        <script>
+            $(document).ready(function(){
+                $.get('input.c', function(data) 
+                {
+                    $("code").text(data);
+                    Prism.highlightElement($('code')[0]);
+                }, 'text');
+            });
+            </script>
+            <script src="prism.js"></script> 
+          
+          
       </head>
       <body>
-        <h3>Parse-Tree</h3>
-        <xsl:apply-templates select="." mode="render"/>
+        <div class="wrapper">  
+            <div class="tree">
+                <h3>Parse-Tree</h3>
+                <xsl:apply-templates select="." mode="render"/>
+            </div>
+            <div class="sourceCodeWrapper">
+                <div class="sourceCode">
+                    <h3>Source Code</h3>
+                    <p></p>
+                    <p></p>
+                    <pre>
+                        <code class="language-c">while(true)</code>
+                    </pre>
+                </div>
+            </div>
+        </div>
       </body>
     </html>
   </xsl:template>
