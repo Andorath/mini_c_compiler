@@ -9,25 +9,21 @@
   <xsl:template match="/">
     <html>
       <head>
-	<meta charset="UTF-8" />
-        <title>Bilotta</title>
-        
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>   
-        <link href="prism.css" rel="stylesheet" />
-          <script src="//cdn.jsdelivr.net/highlight.js/9.1.0/highlight.min.js"></script>
-        <link type="text/css" rel="stylesheet" href="tree-view.css"/>        
+        <meta charset="UTF-8" />
+        <title>SVG Abstract Syntax Tree</title>
+        <script src="js/jquery-1.12.0.min.js"></script>   
+        <link href="css/prism.css" rel="stylesheet" />
+        <link type="text/css" rel="stylesheet" href="css/tree-view.css"/>        
         <script>
             $(document).ready(function(){
-                $.get('input.c', function(data) 
+                $.get('../input.c', function(data) 
                 {
                     $("code").text(data);
                     Prism.highlightElement($('code')[0]);
                 }, 'text');
             });
             </script>
-            <script src="prism.js"></script> 
-          
-          
+        <script src="js/prism.js"></script>    
       </head>
       <body>
         <div class="wrapper">  

@@ -251,21 +251,21 @@ public class Parser extends java_cup.runtime.lr_parser {
       
        // transform the parse tree into an AST and a rendered HTML version
       Transformer transformer = TransformerFactory.newInstance()
-	    .newTransformer(new StreamSource(new File("tree.xsl")));
+	    .newTransformer(new StreamSource(new File("xsl/tree.xsl")));
       Source text = new StreamSource(new File(args[1]));
-      transformer.transform(text, new StreamResult(new File("output.xml")));
+      transformer.transform(text, new StreamResult(new File("xml/output.xml")));
       transformer = TransformerFactory.newInstance()
-	    .newTransformer(new StreamSource(new File("tree-view.xsl")));
-      text = new StreamSource(new File("output.xml"));
-      transformer.transform(text, new StreamResult(new File("ast.html")));
+	    .newTransformer(new StreamSource(new File("xsl/tree-view.xsl")));
+      text = new StreamSource(new File("xml/output.xml"));
+      transformer.transform(text, new StreamResult(new File("output/ast.html")));
 
       /* SVG */
       transformer = TransformerFactory.newInstance()
-	    .newTransformer(new StreamSource(new File("tree-view-svg.xsl")));
+	    .newTransformer(new StreamSource(new File("xsl/tree-view-svg.xsl")));
 
-      text = new StreamSource(new File("output.xml"));
+      text = new StreamSource(new File("xml/output.xml"));
 
-      transformer.transform(text, new StreamResult(new File("svg.html")));
+      transformer.transform(text, new StreamResult(new File("output/svg.html")));
 
   }
 
