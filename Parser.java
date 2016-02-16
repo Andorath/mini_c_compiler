@@ -201,71 +201,62 @@ public class Parser extends java_cup.runtime.lr_parser {
 
 
 
-    public void syntax_error(Symbol cur_token){
-	System.err.println("[SYNTAX ERROR] Syntax error at " + cur_token.value);
+    public void syntax_error(Symbol cur_token)
+    {
+	   System.err.println("[SYNTAX ERROR] Syntax error at " + cur_token.value);
     }
-    public void unrecovered_syntax_error(Symbol cur_token){
-	System.err.println("Errore non recuperato coordinate -> " + cur_token.left + " - " + cur_token.right);
+    public void unrecovered_syntax_error(Symbol cur_token)
+    {
+	   System.err.println("Errore non recuperato coordinate -> " + cur_token.left + " - " + cur_token.right);
     }
-    public static void newScope(){
-	typenames.push(new HashSet<String>());
-    }
-    public static void deleteScope(){
-	typenames.pop();
-    }
-    public static boolean lookupType(String name){
-	for (HashSet<String> scope: typenames)
-	    if (scope.contains(name)) return true;
-	return false;
-    }
-    public static void addType(String name){
-	typenames.peek().add(name);
-    }
-    public static LinkedList<HashSet<String>> typenames = new LinkedList<HashSet<String>>();
-    public Parser(Lexer lex, ComplexSymbolFactory sf) {
-	super(lex,sf);
+    
+    public Parser(Lexer lex, ComplexSymbolFactory sf) 
+    {
+	   super(lex,sf);
     }
 
-    public static void main(String[] args) throws Exception {
-      // initialize the symbol factory
-      ComplexSymbolFactory csf = new ComplexSymbolFactory();
-      // create a buffering scanner wrapper
-      ScannerBuffer lexer = new ScannerBuffer(new Lexer(new BufferedReader(new FileReader(args[0])),csf));
-      // start parsing
-      Parser p = new Parser(lexer,csf);
-      XMLElement e = (XMLElement)p.parse().value;
+    public static void main(String[] args) throws Exception 
+    {
+        ComplexSymbolFactory csf = new ComplexSymbolFactory();
 
-      for (XMLElement el: SyntaxTreeXPath.query(args[2],e)){
-      	  System.out.println(el.getTagname());
-      }
+        ScannerBuffer lexer = new ScannerBuffer(new Lexer(new BufferedReader(new FileReader(args[0])),csf));
+
+        // start parsing
+
+        Parser p = new Parser(lexer,csf);
+        XMLElement e = (XMLElement)p.parse().value;
+
+        for (XMLElement el: SyntaxTreeXPath.query(args[2],e)){
+        System.out.println(el.getTagname());
+        }
 
 
-      TestVisitor t = new TestVisitor();
-      SyntaxTreeDFS.dfs(e,t);
+        TestVisitor t = new TestVisitor();
+        SyntaxTreeDFS.dfs(e,t);
 
-      // create XML output file 
-      XMLOutputFactory outFactory = XMLOutputFactory.newInstance();
-      XMLStreamWriter sw = outFactory.createXMLStreamWriter(new FileOutputStream(args[1]));
-      // dump XML output to the file
-      XMLElement.dump(lexer,sw,e,"expr","stmt");
-      
-       // transform the parse tree into an AST and a rendered HTML version
-      Transformer transformer = TransformerFactory.newInstance()
-	    .newTransformer(new StreamSource(new File("xsl/tree.xsl")));
-      Source text = new StreamSource(new File(args[1]));
-      transformer.transform(text, new StreamResult(new File("xml/output.xml")));
-      transformer = TransformerFactory.newInstance()
-	    .newTransformer(new StreamSource(new File("xsl/tree-view.xsl")));
-      text = new StreamSource(new File("xml/output.xml"));
-      transformer.transform(text, new StreamResult(new File("output/ast.html")));
+        // create XML output file 
+        XMLOutputFactory outFactory = XMLOutputFactory.newInstance();
+        XMLStreamWriter sw = outFactory.createXMLStreamWriter(new FileOutputStream(args[1]));
+        // dump XML output to the file
+        XMLElement.dump(lexer,sw,e,"expr","stmt");
 
-      /* SVG */
-      transformer = TransformerFactory.newInstance()
-	    .newTransformer(new StreamSource(new File("xsl/tree-view-svg.xsl")));
+        // transform the parse tree into an AST and a rendered HTML version
+        Transformer transformer = TransformerFactory.newInstance()
+        .newTransformer(new StreamSource(new File("xsl/tree.xsl")));
+        Source text = new StreamSource(new File(args[1]));
+        transformer.transform(text, new StreamResult(new File("output/output.xml")));
 
-      text = new StreamSource(new File("xml/output.xml"));
+        transformer = TransformerFactory.newInstance()
+        .newTransformer(new StreamSource(new File("xsl/tree-view.xsl")));
+        text = new StreamSource(new File("output/output.xml"));
+        transformer.transform(text, new StreamResult(new File("output/ast.html")));
 
-      transformer.transform(text, new StreamResult(new File("output/svg.html")));
+        /* SVG */
+
+        transformer = TransformerFactory.newInstance()
+        .newTransformer(new StreamSource(new File("xsl/tree-view-svg.xsl")));
+        text = new StreamSource(new File("output/output.xml"));
+        transformer.transform(text, new StreamResult(new File("output/svg.html")));
 
   }
 

@@ -24,7 +24,7 @@ import java.util.*;
   
     private Symbol symbol(int sym) {
       return symbolFactory.newSymbol("sym", sym, new Location(yyline+1,yycolumn+1,yychar), new Location(yyline+1,yycolumn+yylength(),yychar+yylength()));
-  }
+    }
   private Symbol symbol(int sym, Object val) {
       Location left = new Location(yyline+1,yycolumn+1,yychar);
       Location right= new Location(yyline+1,yycolumn+yylength(), yychar+yylength());
@@ -38,11 +38,11 @@ import java.util.*;
     
 %}
 
-D 		= 	0 | [1-9][0-9]*
-L		=	[A-Za-z]
-AN		= 	[0-9A-Za-z]
-new_line       =       \r|\n|\r\n
-white_space    =      {new_line} | [ \t\f]
+D 		        = 	0 | [1-9][0-9]*
+L               =	[A-Za-z]
+AN		        = 	[0-9A-Za-z]
+new_line       	=   \r|\n|\r\n
+white_space    	=   {new_line} | [ \t\f]
 
 %eofval{
      return symbolFactory.newSymbol("EOF", EOF, new Location(yyline+1,yycolumn+1,yychar), new Location(yyline+1,yycolumn+1,yychar+1));
@@ -75,24 +75,20 @@ white_space    =      {new_line} | [ \t\f]
 "!="			{ return symbol(NE_OP,"!="); }
 "&&"			{ return symbol(AND_OP,"&&"); }
 "||"			{ return symbol(OR_OP,"||"); }
-";"			{ return symbol(SEMI,";"); }
-"!"			{ return symbol(NOT,"!"); }
-"="			{ return symbol(ASSIGN,"="); }
-"-"			{ return symbol(MINUS); }
-"+"			{ return symbol(PLUS,"+"); }
-"*"			{ return symbol(MUL,"*"); }
-"/"			{ return symbol(DIVIDE,"/"); }
-"%"			{ return symbol(MODULUS,"%"); }
-"<"			{ return symbol(LESS,"<"); }
-">"			{ return symbol(GREATER,">"); }
+";"             { return symbol(SEMI,";"); }
+"!"             { return symbol(NOT,"!"); }
+"="             { return symbol(ASSIGN,"="); }
+"-"	            { return symbol(MINUS); }
+"+"	            { return symbol(PLUS,"+"); }
+"*"	            { return symbol(MUL,"*"); }
+"/"	            { return symbol(DIVIDE,"/"); }
+"%"             { return symbol(MODULUS,"%"); }
+"<"             { return symbol(LESS,"<"); }
+">" 			{ return symbol(GREATER,">"); }
 
 {white_space}		{ /* ignore bad characters */ }
 
 }
-
-.|\n              {  /* throw new Error("Illegal character <"+ yytext()+">");*/
-		    System.err.println("Illegal character <"+ yytext()+">");
-                  }
 
 
 

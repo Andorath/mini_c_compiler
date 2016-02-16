@@ -37,7 +37,7 @@
                     <p></p>
                     <p></p>
                     <pre>
-                        <code class="language-c">while(true)</code>
+                        <code class="language-c"></code>
                     </pre>
                 </div>
             </div>

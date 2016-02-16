@@ -1,0 +1,12 @@
+La cartella mini_c_compiler contiene tutto il necessario per l'esecuzione del progetto, inclusi gli eseguibili di JFlex e le librerie di java CUP.
+Se si utilizza Chrome come browser predefinito basta chiudere eventuali istanze aperte di Chrome ed eseguire da terminale il comando:
+
+$ sh runChrome.sh
+
+Chrome si aprirà automaticamente visualizzando l'AST in SVG.
+
+Se non si utilizza Chrome eseguire da terminale il comando:
+
+$ sh run.sh
+
+Successivamente, sarà possibile visualizzare l'AST tramite il file svg.html nella cartella output con un qualsiasi browser. 
