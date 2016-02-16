@@ -10,3 +10,6 @@ Se non si utilizza Chrome eseguire da terminale il comando:
 $ sh run.sh
 
 Successivamente, sarà possibile visualizzare l'AST tramite il file svg.html nella cartella output con un qualsiasi browser. 
+
+
+NB: Il progetto è anche consultabile attraverso la repository al seguente link: https://bitbucket.org/sowhateam/mini_c_compiler
